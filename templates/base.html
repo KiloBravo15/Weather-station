@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Charts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .chart-container {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .chart-container form {
+            margin-bottom: 20px;
+        }
+        .chart-container img {
+            width: 100%;
+            height: auto;
+        }
+        .chart {
+            margin-bottom: 40px;
+        }
+        .summary-table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .summary-table th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .summary-table td {
+            text-align: center;
+        }
+        .weather-container {
+            max-width: 1200px;
+            margin: auto;
+            background: #1e3c72;
+            color: white;
+            padding: 40px 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .weather-header {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .weather-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            margin-bottom: 30px;
+        }
+        .weather-icon {
+            font-size: 2em;
+            margin-right: 20px;
+            margin-left: -30px;
+        }
+        .weather-info-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .weather-info {
+            font-size: 1.2em;
+            text-align: left;
+            margin-left: 20px;
+        }
+        .weather-info p {
+            margin: 5px 10px;
+            line-height: 1.2;
+        }
+        .weather-info .label {
+            font-size: 0.8em;
+            color: #ccc;
+        }
+        .weather-info .value {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .weather-conditions {
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        .button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 40px;
+            font-size: 1.5em;
+            margin: 0 40px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 400px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+        }
+        .button.active {
+            background-color: white;
+            color: #1e90ff;
+            position: relative;
+        }
+        .button.active::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 25px;
+            background-color: white;
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+        }
+        .button.inactive {
+            background-color: #1e90ff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="weather-container">
+            <div class="weather-header">Weather now - {{ timestamp }}</div>
+            <div class="weather-info-container">
+                <div class="weather-main">
+                    <div class="weather-icon">
+                        {% if weather_condition == 'Rainy' %}
+                            🌧️
+                        {% elif weather_condition == 'Cloudy' %}
+                            ☁️
+                        {% elif weather_condition == 'Partly Cloudy' %}
+                            ⛅
+                        {% else %}
+                            ☀️
+                        {% endif %}
+                    </div>
+                    <div>{{ temperature }}°C</div>
+                </div>
+                <div class="weather-info">
+                    <p class="value">{{ weather_condition }}</p>
+                    <div class="weather-conditions">
+                        <div>
+                            <p class="label">Humidity</p>
+                            <p class="value">{{ humidity }}%</p>
+                        </div>
+                        <div>
+                            <p class="label">Pressure</p>
+                            <p class="value">{{ pressure }} hPa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="calendarButton" class="button" onclick="window.location.href='/'">Calendar Charts</button>
+                <button id="measurementsButton" class="button" onclick="window.location.href='/last_measurements/'">Last Measurements Charts</button>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script>
+        function setActiveButton() {
+            var path = window.location.pathname;
+            var calendarButton = document.getElementById('calendarButton');
+            var measurementsButton = document.getElementById('measurementsButton');
+
+            if (path === '/last_measurements/') {
+                measurementsButton.classList.add('active');
+                calendarButton.classList.add('inactive');
+            } else {
+                calendarButton.classList.add('active');
+                measurementsButton.classList.add('inactive');
+            }
+        }
+
+        window.onload = setActiveButton;
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Weather Charts</h1>
+    <form method="get" action="">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" min="2024-05-01" max="{{ today }}" value="{{ start_date }}">
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" min="2024-05-01" max="{{ today }}" value="{{ end_date }}">
+        <button type="submit">Update</button>
+    </form>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% else %}
+        <table class="summary-table">
+            <tr>
+                <th>Summary</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Average</th>
+            </tr>
+            <tr>
+                <td>Temperature</td>
+                <td>{{ summary_stats.temperature.max|floatformat:1 }}°C</td>
+                <td>{{ summary_stats.temperature.min|floatformat:1 }}°C</td>
+                <td>{{ summary_stats.temperature.mean|floatformat:1 }}°C</td>
+            </tr>
+            <tr>
+                <td>Humidity</td>
+                <td>{{ summary_stats.humidity.max|floatformat:1 }}%</td>
+                <td>{{ summary_stats.humidity.min|floatformat:1 }}%</td>
+                <td>{{ summary_stats.humidity.mean|floatformat:1 }}%</td>
+            </tr>
+            <tr>
+                <td>Pressure</td>
+                <td>{{ summary_stats.pressure.max|floatformat:1 }} hPa</td>
+                <td>{{ summary_stats.pressure.min|floatformat:1 }} hPa</td>
+                <td>{{ summary_stats.pressure.mean|floatformat:1 }} hPa</td>
+            </tr>
+            <tr>
+                <td>Light Intensity</td>
+                <td>{{ summary_stats.light_intensity.max|floatformat:1 }} lux</td>
+                <td>{{ summary_stats.light_intensity.min|floatformat:1 }} lux</td>
+                <td>{{ summary_stats.light_intensity.mean|floatformat:1 }} lux</td>
+            </tr>
+            <tr>
+                <td>Rainy Hours</td>
+                <td colspan="3">{{ summary_stats.rainfall.rainy_hours }}</td>
+            </tr>
+            <tr>
+                <td>Dry Hours</td>
+                <td colspan="3">{{ summary_stats.rainfall.dry_hours }}</td>
+            </tr>
+        </table>
+        <div class="chart">
+            <h2>Temperature</h2>
+            <img src="{{ temp_plot }}" alt="Temperature Chart">
+        </div>
+        <div class="chart">
+            <h2>Humidity</h2>
+            <img src="{{ hum_plot }}" alt="Humidity Chart">
+        </div>
+        <div class="chart">
+            <h2>Pressure</h2>
+            <img src="{{ pres_plot }}" alt="Pressure Chart">
+        </div>
+        <div class="chart">
+            <h2>Light Intensity</h2>
+            <img src="{{ light_plot }}" alt="Light Intensity Chart">
+        </div>
+        <div class="chart">
+            <h2>Rainfall</h2>
+            <img src="{{ rain_plot }}" alt="Rainfall Chart">
+        </div>
+    {% endif %}
+</div>
+<script>
+    document.getElementById('start_date').addEventListener('change', function() {
+        const startDate = this.value;
+        const endDateInput = document.getElementById('end_date');
+        endDateInput.min = startDate;
+        if (new Date(endDateInput.value) < new Date(startDate)) {
+            endDateInput.value = startDate;
+        }
+    });
+
+    document.getElementById('end_date').addEventListener('change', function() {
+        const endDate = this.value;
+        const startDateInput = document.getElementById('start_date');
+        if (new Date(endDate) < new Date(startDateInput.value)) {
+            this.value = startDateInput.value;
+        }
+    });
+</script>
+
+{% endblock %}
