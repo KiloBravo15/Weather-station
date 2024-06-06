@@ -16,7 +16,7 @@ $ ssh pi@adres_ip_raspberry_pi
 Poprosi o hasło - należy wpisać "test123".
 
 Po zalogowaniu się powinno przenieść do Raspberry PI :
-- w konsoli jest pi@raspberrypi:~ $
+- w konsoli jest: pi@raspberrypi:~ $
 - bezwzględna ścieżka to /home/pi
 
 ## 2. Uruchomianie aplikacji webowej
@@ -34,7 +34,10 @@ W głównym folderze (/home/pi)w środowisku wirtualnym:
 (env) pi@raspberrypi:~ $ cd weather_station/
 (env) pi@raspberrypi:~/weather_station $ python manage.py runserver 0.0.0.0:1234
 ```
-Podany port (1234) jest portem przykładowym, można użyć dowolnie innego. Po uruchomieniu serwera, należy otworzyć w przeglądarce: http://adres_ip_raspberry_pi:port/, np: "http://192.168.1.140:1234/".
+Podany port (1234) jest portem przykładowym, można użyć dowolnie innego. 
+
+Po uruchomieniu serwera, należy otworzyć w przeglądarce: http://adres_ip_raspberry_pi:port/
+- np: "http://192.168.1.140:1234/".
 
 Żby zakończyć działanie serwera należy wcisnąć CTRL C w konsoli, następnie można wyjść ze środowiska wirtualnego wpisując "deactivate".
 
@@ -57,7 +60,7 @@ W folderze "data" (/home/pi/data/), w środowisku wirtualnym:
 (env) pi@raspberrypi:~/data $ cd data_project/
 (env) pi@raspberrypi:~/data/data_project $ python sensors_measurements.py 
 ```
-## 4. Uruchomienie skryptu pokauzjącego aktualne wskazania czujników (w nieskończonej pętli)
+## 4. Uruchomienie skryptu pokazującego aktualne wskazania czujników (w nieskończonej pętli)
 Jeśli nie jesteś w środowisku wirtualnym uruchamianym z folderu "data" (/home/pi/data/), należy wykonać punkt 3.1.
 
 W folderze "data" (cd /home/pi/data):
