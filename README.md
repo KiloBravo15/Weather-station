@@ -14,7 +14,10 @@ Po sprawdzeniu dostępnych adresów IP trzeba znaleźć IP dla Raspberry PI i ur
 $ ssh pi@adres_ip_raspberry_pi
 ```
 Poprosi o hasło - należy wpisać "test123".
-Po zalogowaniu się powinno przenieść do Raspberry PI - w konsoli jest pi@raspberrypi:~ $ (bezwzględna ścieżka to /home/pi).
+
+Po zalogowaniu się powinno przenieść do Raspberry PI :
+- w konsoli jest pi@raspberrypi:~ $
+- bezwzględna ścieżka to /home/pi
 
 ## 2. Uruchomianie aplikacji webowej
 
