@@ -2,6 +2,7 @@
 
 ## 1. Połączenie się do Raspberry PI
 użytkownik: pi
+
 hasło: test123
 ### 1.1 Połączenie się po ssh
 Sprawdzenie jaki adres ip ma Raspberry PI (przykładowo adres_sieci=192.168.1.0, maska=24):
