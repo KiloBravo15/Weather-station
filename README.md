@@ -19,14 +19,14 @@ Po zalogowaniu się powinno przenieść do Raspberry PI - w konsoli jest pi@rasp
 ## 2. Uruchomianie aplikacji webowej
 
 ### 2.1 Uruchomienie wirtualnego środowiska
-W głównym folderze:
+W głównym folderze (/home/pi):
 ```bash
 pi@raspberrypi:~ $ source env/bin/activate
 ```
 Powinno wyświetlić się środowisko witrualne: (env) pi@raspberrypi:~ $ 
 
 ### 2.2 Uruchomienie aplikacji webowej
-W głównym folderze w środowisku wirtualnym:
+W głównym folderze (/home/pi)w środowisku wirtualnym:
 ```bash
 (env) pi@raspberrypi:~ $ cd weather_station/
 (env) pi@raspberrypi:~/weather_station $ python manage.py runserver 0.0.0.0:1234
@@ -40,6 +40,7 @@ Standardowo skrypt ten jest uruchamiany automatycznie co godzinę, więc nie ma 
 
 ### 3.1 Uruchomianie wirtualnego środowiska
 Jeśli jest się w wirtualnym środowisku od aplikacji webowej należy z niego wyjść komendą "deactivate".
+
 W głównym folderze (cd /home/pi):
 ```bash
 pi@raspberrypi:~ $ cd data/
@@ -55,6 +56,7 @@ W folderze "data" (/home/pi/data/), w środowisku wirtualnym:
 ```
 ## 4. Uruchomienie skryptu pokauzjącego aktualne wskazania czujników (w nieskończonej pętli)
 Jeśli nie jesteś w środowisku wirtualnym uruchamianym z folderu "data" (/home/pi/data/), należy wykonać punkt 3.1.
+
 W folderze "data" (cd /home/pi/data):
 ```bash
 (env) pi@raspberrypi:~/data $ python scrapper.py 
